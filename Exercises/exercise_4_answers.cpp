@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include <stdlib.h>
+#include <algorithm> // To use min and max functions
 
 using namespace std;
 
@@ -88,5 +88,36 @@ int main()
             cout << int(a) << " ";
         }
     }
-
+	
+	
+	// Q6 - Finding greatest common divisor
+    
+    int a; cout << "a = "; cin >> a;
+    int b; cout << "b = "; cin >> b;
+    
+    // Euclid's algorithm
+    
+    // while (b != 0) {
+    //     int temp = b;
+    //     b = a % b;
+    //     a = temp;
+    // }
+    // cout << "gcd is "<< a;
+    
+    // Naive method - assume a >= b
+    
+    if (a % b == 0) {
+        cout << a << " is a multiple of " << b;
+        cout << ", so gcd is " << b;
+    }
+    else {
+        int gcd = 1;
+        for (int i = 1; i < b/2; i++)  {
+            if (a % i == 0 && b % i ==0)
+                gcd = i;
+        }
+        cout << "gcd is " << gcd;
+    }
+	
+	
 }
