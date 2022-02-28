@@ -112,24 +112,35 @@ Integers can be cast to doubles **implicitly** without warning because they are 
 - `int k = 2; double j = k;` - casts automatically, no issues
 - `double j = 2.43; int = j;` - casts but with warning!
 
+### Input and Output
+
+C++ Style:
+
+- Can use `cin >> var1;` to assign user input via console to the variable `var1`
+- Can use `cout << var1 << endl;` to print values as output to console
+
+C Style:
+
+- Use function `printf` and `scanf`
+- Note: Non examinable!
+
+Checking if input is valid:
+
+- Use `cin.good()` to check the value taken as input is of the correct data type for the variable it has been stored in. E.g. `if (!cin.good()) {cout << "Input was invalid" << endl;}`
+
 ### 'If' Statements
 
-Same as in C#
-
-Example:
+Same as in C#. Example:
 
 ```c++
-int age = 6;
-int category = 0;
-if (answer >= 4)
-	category = 3;     
-if else (answer <= 2)
-    category = 1;
-else
-    category = 2;
+int userInput2;
+    cout << "Is even? "; 
+    cin >> userInput2;
+    if (userInput2 % 2 == 0)
+        cout << "Yes, number is even" << endl;
+    else
+        cout << "No, number is odd" << endl;
 ```
-
-
 
 ### Loops
 
@@ -159,10 +170,6 @@ Used to iterate commands when you **don't** know how many iterations are needed 
  
 
 ## Week 3
-
-
-
-
 
 
 
