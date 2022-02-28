@@ -197,6 +197,7 @@ double power(const double x, int power n) {
         - Names of parameters
 - Function A can use function B in its main body as long as function B came before A in its declaration. So, the advantage of writing out our declarations first at the top of every file of code is that the definitions which follow can freely call other functions, regardless of order.
 - A function with no return type is specified as `void`. A function with no arguments can have its round brackets left blank, or with the keyword `void` on the inside.
+- Note - functions cannot be defined within other functions like `int main {}`
 
 ### Constants
 
@@ -308,7 +309,7 @@ These can be initialised in many ways:
 
 Note: a "normal" array would be of the form `double a[] = {1.0, 1.1, ..}`
 
-Many functions take valarrays as arguments and apply the function to it element-wise, e.g. sin() and cos(). Valarrays also have special methods such as `shift()` and `cshift()` to shift elements normally an 
+Many functions take valarrays as arguments and apply the function to it element-wise, e.g. sin() and cos(). Valarrays also have special methods such as `shift()` and `cshift()` to shift elements normally and circularly. 
 
 ### Other
 
