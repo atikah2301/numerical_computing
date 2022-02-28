@@ -59,5 +59,14 @@ int main()
 	// Ex2 Q12 - More on output
 	int age = 21;
 	cout << "\thello i am " << age << " years old!" << "\n";
+	
+	// Ex2 Q13 - Dividing floats and ints
+	//double m = 5;
+    //double n = 4;
+    //cout << m/n << endl;
+	
+	int m = 5;
+    int n = 4;
+    cout << m/n << endl;
 
 }
