@@ -171,5 +171,146 @@ Used to iterate commands when you **don't** know how many iterations are needed 
 
 ## Week 3
 
+### Functions
+
+- Modular programming (using functions) is a form of abstracting code
+- Start by specifying return type, name, parameter type and parameter name, then scope. E.g.
+
+```c++
+double power(const double x, int power n) {
+	double result = 1.0;
+	for (int i = 1; i <= n; i++) {
+		result *= x;
+	}
+	return result;
+}
+```
+
+- We can declare and define functions in separate places. Declarations are the same as defining but excludes the scope and main body of the function, e.g. `double power(const double x, int power n);`
+    -  Declaration and definition need only match for:
+        - Return type
+        - Name
+        - Number of parameters
+        - Types of parameters
+    - They need not match for:
+        - Order of parameters
+        - Names of parameters
+- Function A can use function B in its main body as long as function B came before A in its declaration. So, the advantage of writing out our declarations first at the top of every file of code is that the definitions which follow can freely call other functions, regardless of order.
+- A function with no return type is specified as `void`. A function with no arguments can have its round brackets left blank, or with the keyword `void` on the inside.
+
+### Constants
+
+For a variable storing an unchanging value, use the `const` modifier in from of a variables declaration e.g.
+
+```c++
+const double pi = 3.14159265358979; // using a const
+pi *= 2.0; // results in an error since a const can't be altered
+```
+
+Use `const` as consistently and often as possible is "const-correctness", which helps reduce bugs in code.
+
+### Global Variables
+
+If we want a variable to be accessible by any function, loop etc. regardless of scope, we can make it a global variable. These are usually `const` so that they can be used for parallel processing i.e. they aren't changed by function A before function B wants to use it.
+
+### Overloaded Functions
+
+If two functions have the **same name** but **different parameter types**, then we have an overloaded function. This can easily go wrong if the two functions are not conceptually the same in their usage. Example:
+
+```c++
+double square(double x) { return x*x; }
+double square(int x) { return x*x; } // Correctly overloaded, since parameter type differs 
+int square(int x) { return x*x; } // Correctly overloaded, since return type can only differ when parameter type differs
+int square(double x) { return x*x; } // Incorrectly overloaded, since return type cannot differ unlesss parameter type differs
+```
+
+### Recursive Functions
+
+Example
+
+```c++
+int factorial(const int n) {
+	if (n <= 1) return 1;
+	else return n*factorial(n-1);
+}
+```
 
 
+
+### Naming Conventions
+
+**Reserved words** are keywords in C++ that can't be used as function names, variable names etc. because they already have a predefined meaning in the language, e.g. we can't name a function `double` since this is a known data type.
+
+### Importing
+
+To import code from file A to file B, put `#include "file_A.cpp"` at the top of file B. This will effectively copy all code from file A and paste it onto that line in file B.
+
+This only works when file A and B are in the same directory
+
+### Headers 
+
+Header files, with extension .h, are files in which all declarations for functions go, and the header is imported into all relevant .cpp files. Non examinable.
+
+## Week 4 - Vectors, Valarrays, References
+
+### Vectors
+
+The C++ standard library, i.e. `using namespace std` or `std::`,  contains code for data structures, functions, algorithms, and more.
+
+Vectors are one such data structure, implementing using OOP and templates - features in C++ but not C. In C, we would use C-style arrays, but vectors are less error-prone. We can gain access to vectors using `#include <vector>` at the top of our code.
+
+#### Accessing elements of a vector
+
+We can access elements of a vector using the index of the element in square brackets following the named instance of a vector, e.g. `v[0]`. 
+
+The last element of a vector is accessed as `v.back()`.
+
+#### Initialising a vector
+
+- `vector<double> v` gives ` []`
+- `vector<double> v(3, 1.0)` gives `[1.0, 1.0, 1.0]`
+- `vector<double> v(3)` gives `[0.0, 0.0, 0.0]` 
+- `vector<int> v{1, 2, 3}` or `vector<double> v={1, 2, 3}`gives `[1, 2, 3]`
+
+#### Vector operations
+
+- *Append* - add a new element to a vector using `v.push_back(a)` where `a` is the new element
+- *Clear* - reset the size of a vector to 0 and delete all elements using `v.clear()`
+- *Remove from end* - reduce size by 1 and delete last element using `v.pop_back()`
+- *Resize* - use `v.resize(n)` where `n` is an integer for the new size 
+
+### Templates
+
+A template is used to help specify a function that could have return types or parameter types that work with different data types. It's the safer way of creating an overloaded function intentionally. 
+
+A vector is an example of a data structure that would work with any type of numeric data type. To specify which data type we're working with from the template, use angle brackets: `vector<double>`.
+
+### Objects
+
+In C++, objects can be instances of either a `class` or a `struct`. To access functions and properties of an object, use the dot operator. E.g.
+
+```c++
+vector<double> v(5, 1.0); // v is an in instance a vector
+cout << v.size(); // access the size property or function of v 
+```
+
+### Valarrays
+
+The C++ `std` library provides a highly efficient data structure (or more accurately, a template) for vectors which can be imported using `#include <valarray>`. 
+
+These can be initialised in many ways:
+
+- `valarray<int> v;` for `{}`
+- `valarray<int> v(n);` for vector `{0,0,0..,0}` of size `n` 
+- `valarray<int> v(x, n);` for `{x, x, x,..,x}` of size `n`
+- `valarray<double> v(n, x);` for `{x, x, x,..,x}` of size `n`, where `x` is a `double` and `n` is an `int`
+- `valarray<double> v(a, n);` for `{a[0], a[1], .., a[n-1]}` for the first `n` values of an array `a`
+
+Note: a "normal" array would be of the form `double a[] = {1.0, 1.1, ..}`
+
+Many functions take valarrays as arguments and apply the function to it element-wise, e.g. sin() and cos(). Valarrays also have special methods such as `shift()` and `cshift()` to shift elements normally an 
+
+### Other
+
+- Debug mode vs Release mode on VS
+- Subscript out of range errors
