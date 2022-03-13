@@ -1,4 +1,4 @@
-# Numerical Computing
+# Numerical Computing with C++
 
 Assessment:
 
@@ -315,3 +315,71 @@ Many functions take valarrays as arguments and apply the function to it element-
 
 - Debug mode vs Release mode on VS
 - Subscript out of range errors
+
+### Passing by Value
+
+- Passing an argument to a function by value means creating a copy of the value passed in, so that the original value (of the literal or variable passed) is unaffected. 
+- Instead the copy of the value is manipulated within the function using a local variable
+- Example:
+
+```C++
+int increment(int k) {return k++;} // passing by value
+```
+
+```c++
+int main() {
+    int m = 2;
+    int n = increment(m); // value of m is still 2, but n is 3
+}
+```
+
+### Passing by Reference
+
+- Passing an argument to a function by reference means manipulating the original value of the variable passed in. 
+- So whatever happens to the local variable inside the function happens to the variable used as argument
+- Using `&` after declaring the data type of some variable allows us to reference the location of the data, not just the value of the data itself. 
+    - `cout << k` would print the value of the variable `k`, which could be `2`
+    - `cout << &k` would print the location of the date stored in variable `k`, which could be `0x7fffca7f5cc4`, which an address on the CPU given in hexidecimal.
+- Example:
+
+```C++
+int increment(int& k) {return k++;} // passing by reference using an "&" symbol
+```
+
+```c++
+int main() {
+    int m = 2;
+    int n = increment(m); // n is 3 since that's what was returned by the function
+    // but now m is 3 also 
+    // m and n may have the same value but are stored at different addresses
+}
+```
+
+### Reference Variables
+
+- A reference variable allows you to create a new variable that refers to the same memory address as another variable, so that when the data at the address changes, both the original variable and reference variable are updated simultaneously. 
+- In other words, reference variables create a shallow copy of the original variable.
+- Example:
+
+```c++
+int main() {
+    int m = 2;
+    int k = m;
+    int& n = m; // create a shallow copy of m using reference variable n
+    m++; // m and n are now both 3, whereas k is still 2
+}
+```
+
+### Pointers
+
+- We can store the memory address of a variable's data as its own data type, called a pointer, which is declared using `*`
+- For any pointer, you still need to specify what type of data is at the memory address being stored by the pointer, e.g. `int*` or `bool*`
+- To get the address of a variable to store in the pointer, use `&var`
+
+```c++
+int main() {
+    int m = 2;
+    int* ptr = &m; // get the memory address of m, store it in a pointer,
+}
+```
+
