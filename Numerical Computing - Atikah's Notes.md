@@ -236,8 +236,6 @@ int factorial(const int n) {
 }
 ```
 
-
-
 ### Naming Conventions
 
 **Reserved words** are keywords in C++ that can't be used as function names, variable names etc. because they already have a predefined meaning in the language, e.g. we can't name a function `double` since this is a known data type.
@@ -335,25 +333,55 @@ int main() {
 
 ### Passing by Reference
 
-- Passing an argument to a function by reference means manipulating the original value of the variable passed in. 
-- So whatever happens to the local variable inside the function happens to the variable used as argument
+What is passing by reference?
+
+- Passing an argument to a function by reference means using the original value of the variable passed in for any operations carried out within the function. 
+
+When should I pass by reference?
+
+- Passing by reference allows us to not copy large bodies of data unnecessarily, to save on memory and be more efficient.
+- This can also be used to directly manipulate data in variables that existed outside of the function.
+
+How do I pass by reference?
+
 - Using `&` after declaring the data type of some variable allows us to reference the location of the data, not just the value of the data itself. 
     - `cout << k` would print the value of the variable `k`, which could be `2`
     - `cout << &k` would print the location of the date stored in variable `k`, which could be `0x7fffca7f5cc4`, which an address on the CPU given in hexidecimal.
-- Example:
+- Example for directly manipulating data:
 
 ```C++
-int increment(int& k) {return k++;} // passing by reference using an "&" symbol
+int increment(int& k) {return k++;} // passing by reference using an "&" symbol	
+```
+
+- Example for referring to data from outside the function, without manipulating it:
+    - Pass in the vector by reference, to avoid creating a copy of it
+    - However, we don't intend to alter vector at all in this function
+    - So we pass it in as a const reference. so that if we do accidentally change the vector through out function code, an error will occur to warn us.
+    - Note: By convention, any `const` reference arguments and non-changing arguments go first in the list of a functions arguments
+
+```c++
+vector<int> w = {1, 2, 3}
+int get_sum(const vector<int>& v) {
+    int sum = 0;
+    for (int i = 0; i < v.size(); i++) {
+        sum += v[i];
+    }
+    return sum;
+}
 ```
 
 ```c++
 int main() {
     int m = 2;
-    int n = increment(m); // n is 3 since that's what was returned by the function
-    // but now m is 3 also 
+    int n = increment(m); // m is now 3 since we passed it by reference to the function
+    // n is also 3 since it stores the function's return value 
     // m and n may have the same value but are stored at different addresses
 }
 ```
+
+### Alternative to Passing by Reference
+
+- If variable `m` is passed to a function by value, it won't be manipulated. However, we can still achieve the effect of having `m` changed by the time the code finishes running, using reassignment, e.g. `m = increment(m);`. 
 
 ### Reference Variables
 
@@ -383,3 +411,4 @@ int main() {
 }
 ```
 
+- 
