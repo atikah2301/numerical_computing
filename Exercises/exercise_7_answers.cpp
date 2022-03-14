@@ -10,7 +10,7 @@ using namespace std;
 vector<int> fibonacci(int n);
 vector<int> primes(int n);
 
-void print_vector(vector<int> v);
+void print_vector(const vector<int> v);
 
 
 int main()
@@ -89,7 +89,7 @@ vector<int> fibonacci(int n) {
     return fib_nums;
 }
 
-void print_vector(vector<int> v) {
+void print_vector(const vector<int> v) {
     for (int i = 0; i < v.size(); i++) {
         cout << v[i] << " ";
     }
