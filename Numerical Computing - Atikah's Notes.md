@@ -27,6 +27,10 @@ C& C++ Info:
 - UNIX was originally written in C
 - Bjarne Stroustrup developed C++ to add more features including OOP capabilities for C
 
+
+
+
+
 ## Week 1 - Intro, Data Types, Operators
 
 ### Hello World Program
@@ -88,9 +92,11 @@ C& C++ Info:
 
 ### IDE Notes
 
-- `exit with code 0` means everything ran as expected.
+- `exit with code 0` means everything ran as expected
 
-    
+
+
+
 
 ## Week 2 - Casting, Conditionals, Loops
 
@@ -169,7 +175,9 @@ Used to iterate commands when you **don't** know how many iterations are needed 
 
  
 
-## Week 3
+
+
+## Week 3 - Functions & Variables
 
 ### Functions
 
@@ -250,7 +258,11 @@ This only works when file A and B are in the same directory
 
 Header files, with extension .h, are files in which all declarations for functions go, and the header is imported into all relevant .cpp files. Non examinable.
 
-## Week 4 - Vectors, Valarrays, References
+
+
+
+
+## Week 4 - Vectors & References
 
 ### Vectors
 
@@ -411,4 +423,58 @@ int main() {
 }
 ```
 
-- 
+
+
+
+
+## Week 5 - Strings & Files
+
+### Strings
+
+- To use C++ style strings, use `#include <string>` from the standard library.
+- They can be concatenated using `+`, and their length is given by `.size()`, just like for vectors.
+
+### C++ Programs
+
+- C++ code is written in .cpp files and .h (or .hpp) files, then build into a .exe program file.
+- Code files (.cpp and .h) $\to$ Pre-processor $\to$ Compiler $\to$ Object file 
+- Then, Object files + Library files $\to$ Linker $\to$ Executable
+- In VS, "Build solution" creates the .exe file.
+
+### Batch Files & Shell Scripts
+
+- A batch file in Windows (or shell script in Unix based OS) is a file containing a series of commands, including commands to run an executable file, i.e. a program. 
+
+- This allows us to pass arguments to the program from outside the development environment.
+
+- We must specify parameters for `int main()` from within our code files first:
+
+    - `int argc`, meaning argument count, specifies the number of arguments to expect for `main`
+    - `char** argv`, meaning argument vector, will be a sequence of character arguments for `main`
+
+- Then to create the batch file, start with a new .txt file and add the following:
+
+    > C:\\...\\...\program.exe 2.4 7
+    >
+    > C:\\...\\...\program.exe 3.6 9	
+
+    Note that if the batch file and executable are in the same directory, just name the relative path, which would be just `program.exe` instead of the absolute file path.
+
+- Change the file extension to .bat and click to run, right-click and choose Edit to add more commands.
+
+### Batch File Syntax
+
+- Create variables to avoid repeating things such as the program's absolute path
+
+```bash
+set exe = C:\...\...\program.exe
+%exe% 2.4 7
+%exe% 3.6 9
+```
+
+- Create simple loops e.g. run the following from 1 to 7 in steps of 2
+
+```bash
+for /L %%k in (1 2 7) do %exe% 1.6 %%k
+```
+
