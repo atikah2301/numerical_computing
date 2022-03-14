@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// Week 1 - Practice and exercise answers
+// Week 1, Exercise 1
 
 int main()
 {

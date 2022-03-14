@@ -3,7 +3,7 @@
 
 using namespace std;
 
-// Week 6 - Practice and exercise answers
+// Week 3, Exercise 6
 
 // Global constants
 const double e = 2.7182818284590; 

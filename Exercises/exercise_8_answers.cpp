@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// Week 8 - Practice and exercise answers
+// Week 4, Exercise 8
 
 // Function declarations
 void swap_by_val(int a, int b);

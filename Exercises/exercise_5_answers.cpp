@@ -3,7 +3,7 @@
 
 using namespace std;
 
-// Week 5 - Practice and exercise answers
+// Week 3, Exercise 5
 
 // Function declarations
 double triangle_area(const double a, const double b, const double c);

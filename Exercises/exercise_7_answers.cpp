@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// Week 7 - Practice and exercise answers
+// Week 4, Exercise 7
 
 // Function declarations
 vector<int> fibonacci(int n);
