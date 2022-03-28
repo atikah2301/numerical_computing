@@ -3,10 +3,18 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Ignore stuff from CLion projects
+cmake-build-debug/
+.idea/
+
 # Ignore all but cpp files
 *.vcxproj
 *.filters
 *.sln
+*.xml
+*.iml
+*txt
+*.md
 
 # User-specific files
 *.rsuser
