@@ -1,6 +1,6 @@
 #include <iostream> // for cout
 #include <iomanip> // for setprecision()
-#include <valarray> // for valarrays, *, and .size()
+#include <valarray> // for valarrays, *, .size(), abs()
 #include <cmath> // for pow()
 #include <stdexcept> // for invalid_argument()
 
@@ -22,14 +22,29 @@ long double dot(const valarray<long double>& A, const valarray<long double>& B);
 long double cdot(const valarray<long double>& A, const valarray<long double>& B);
 long double kahan_sum(const valarray<long double>& v);
 
-// Part (d) - Function Object
+// Part (d) - Create a struct, to create the function object from
+struct Norm {
+    int m;
+    Norm() : m(2) {} // Euclidean Norm
+
+    long double operator() (const valarray<long double>& A) const {
+        const valarray<long double> A_0 = abs(A);
+        valarray<long double> A_1 = abs(A);
+        for (int i = 1; i < m; i++) {
+            A_1 = A_1*A_0; // Self-consistent iteration to get A^m
+        }
+        long double norm_sum = kahan_sum(A_1);
+        long double exponent = 1.0 / (long double)m;
+        return pow(norm_sum, exponent);
+    }
+};
 
 int main()
 {
     // Part(a) - Test that dot() returns the inner product
 
-    valarray<long double> A_test = {1, 2, 3};
-    valarray<long double> B_test = {2, 3, 4};
+    const valarray<long double> A_test = {1, 2, 3};
+    const valarray<long double> B_test = {2, 3, 4};
     cout set << dot(A_test, B_test) << endl; // prints 20, as expected
 
     // Part (b) - Use dot() to approximate the sum of squared reciprocals
@@ -40,13 +55,13 @@ int main()
         A[i-1] = 1.0 / (long double)i;
     }
     // Test A and A*A have the expected values by printing them for n=10
-    print_valarray(A);
-    print_valarray(A*A);
+    //print_valarray(A);
+    //print_valarray(A*A);
     // Calculate 1/(i^2) using dot(), and get the error between our calculation and the expected value of (pi^2)/6
-    long double A_squared = dot(A, A);
-    long double diff = A_squared - expected_1;
+    long double A_dot = dot(A, A);
+    long double diff = A_dot - expected_1;
     // Print the final results
-    cout set << "A.A = " << A_squared << endl;
+    cout set << "A.A = " << A_dot << endl;
     cout set << "pi*pi/6 = " << expected_1 << endl;
     cout set << "difference = "<< diff << endl;
 
@@ -61,6 +76,12 @@ int main()
     cout set << "dot error = " << abs(C_dot - expected_2) << endl;
     cout set << "cdot error = " << abs(C_cdot - expected_2) << endl;
 
+    // Part (d) - Norm(A) squared vs inner product
+
+    Norm norm_object;
+    long double norm_of_A = norm_object(A);
+    long double norm_of_A_sqr = norm_of_A * norm_of_A;
+    cout set << "Norm(A)^2 = " << norm_of_A_sqr;
 }
 // Function Definitions
 
