@@ -16,9 +16,9 @@ const long double I_exact = pi * 2.0L;
 void print_valarray(const valarray<long double>& A);
 long double cdot(const valarray<long double>& A, const valarray<long double>& B);
 long double kahan_sum(const valarray<long double>& v);
-valarray<long double> integrand(const valarray<long double>& X);
-long double clenshaw(const int a, const int b, const int n);
-long double sum_for_clenshaw(const long double theta, const int n);
+valarray<long double> integrand(const valarray<long double>& X, const long double& b);
+long double clenshaw(const long double& a, const long double& b, const int& n);
+long double sum_for_clenshaw(const long double& theta, const int& n);
 
 int main() {
     int a = 0; int b = 4; int n = 64;
@@ -62,14 +62,14 @@ long double kahan_sum(const valarray<long double>& v) {
 }
 
 // Calculate F values en masse from a valarray, X
-valarray<long double> integrand(const valarray<long double>& X, const long double b) {
+valarray<long double> integrand(const valarray<long double>& X, const long double& b) {
     // f(x) = sqrt((b-x)x)
     return pow(((long double)b - X)*X, 0.5L);
 }
 
 // Part (c) - Define Clenshaw-Curtis Quadrature Rule function
-long double clenshaw(const int a, const int b, const int n) {
-    const long double q = (long double)(b - a) / 2.0L;
+long double clenshaw(const long double& a, const long double& b, const int& n) {
+    const long double q = (b - a) / 2.0L;
     const long double option_1 = q * 1.0L / (long double)(n * n);
     long double theta_i;
     long double r_i;
@@ -81,7 +81,7 @@ long double clenshaw(const int a, const int b, const int n) {
 
     for (int i = 0; i < n; i++) {
         theta_i = (long double)i * pi / (long double)(n - 1);
-        X[i] = ((long double)(a + b) + (long double)(a - b) * cos(theta_i)) * 0.5L;
+        X[i] = ((a + b) + ((a - b) * cos(theta_i))) * 0.5L;
         r_i = sum_for_clenshaw(theta_i, n);
         option_2 = q * 2.0L * (1.0L - r_i) / (long double)(n - 1);
         W[i] = (i == 0 || i == n-1) ? option_1 : option_2; // ternary operator to assign weights
@@ -92,7 +92,7 @@ long double clenshaw(const int a, const int b, const int n) {
 }
 
 // Part (c) - Define an auxiliary function for Clenshaw
-long double sum_for_clenshaw(const long double theta, const int n) {
+long double sum_for_clenshaw(const long double& theta, const int& n) {
     const int length_of_sum = (n - 2) / 2; // = 31
     long double numerator;
     long double denominator;

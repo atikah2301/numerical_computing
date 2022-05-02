@@ -17,7 +17,7 @@ void print_valarray(const valarray<long double>& A);
 long double cdot(const valarray<long double>& A, const valarray<long double>& B);
 long double kahan_sum(const valarray<long double>& v);
 valarray<long double> integrand(const valarray<long double>& X);
-long double simpson(const int a, const int b, const int n);
+long double simpson(const long double& a, const long double& b, const int& n);
 
 int main() {
     int a = 0; int b = 4; int n = 64;
@@ -67,14 +67,14 @@ valarray<long double> integrand(const valarray<long double>& X, const long doubl
 }
 
 // Part (b) - Define Simpson's Rule function
-long double simpson(const int a, const int b, const int n) {
-    const long double h = (long double)(b - a)/ (long double)n;
+long double simpson(const long double& a, const long double& b, const int& n) {
+    const long double h = (b - a)/ (long double)n;
     valarray<long double> X(n); // x_i values: {0,0,..,0} for indices [0],[1],..[63]
     valarray<long double> F(n); // f(x_i) = f_i values
     valarray<long double> W(n); // weights
 
     for (int i = 0; i < X.size(); i++) {
-        X[i] = (long double)a + h * (long double)i; // use step size h to calculate each x value
+        X[i] = a + h * (long double)i; // use step size h to calculate each x value
 
         if (i == 0 || i == n - 1) W[i] = (h * 17.0L) / 48.0L;
         else if (i == 1 || i == n - 2) W[i] = (h * 59.0L) / 48.0L;

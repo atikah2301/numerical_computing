@@ -16,8 +16,8 @@ const long double I_exact = pi * 2.0L;
 void print_valarray(const valarray<long double>& A);
 long double cdot(const valarray<long double>& A, const valarray<long double>& B);
 long double kahan_sum(const valarray<long double>& v);
-valarray<long double> integrand(const valarray<long double>& X);
-long double trapezium(const int a, const int b, const int n);
+valarray<long double> integrand(const valarray<long double>& X, const long double& b);
+long double trapezium(const long double& a, const long double& b, const int& n);
 
 int main() {
     int a = 0; int b = 4; int n = 64;
@@ -61,13 +61,13 @@ long double kahan_sum(const valarray<long double>& v) {
 }
 
 // Calculate F values en masse from a valarray, X
-valarray<long double> integrand(const valarray<long double>& X, const long double b) {
+valarray<long double> integrand(const valarray<long double>& X, const long double& b) {
     // f(x) = sqrt((b-x)x)
     return pow(((long double)b - X)*X, 0.5L);
 }
 
 // Part (a) - Define Trapezium Rule function
-long double trapezium(const int a, const int b, const int n) {
+long double trapezium(const long double& a, const long double& b, const int& n) {
     const long double h = (long double)(b - a)/ (long double)n;
     valarray<long double> X(n); // x_i values: {0,0,..,0} for indices [0],[1],..[63]
     valarray<long double> F(n); // f(x_i) = f_i values

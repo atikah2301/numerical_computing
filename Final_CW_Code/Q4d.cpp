@@ -17,9 +17,9 @@ const long double I_exact = pi * 2.0L;
 void print_valarray(const valarray<long double>& A);
 long double cdot(const valarray<long double>& A, const valarray<long double>& B);
 long double kahan_sum(const valarray<long double>& v);
-valarray<long double> integrand(const valarray<long double>& X);
-long double mv_monte(const long double a, const long double b, const int sample_size);
-valarray<long double> uniform_randoms(const long double a, const long double b, int n);
+valarray<long double> integrand(const valarray<long double>& X, const long double& b);
+long double mv_monte(const long double& a, const long double& b, const int& sample_size);
+valarray<long double> uniform_randoms(const long double& a, const long double& b, const int& sample_size);
 
 int main() {
     int a = 0; int b = 4; int sample_size = 1000;
@@ -63,14 +63,14 @@ long double kahan_sum(const valarray<long double>& v) {
 }
 
 // Calculate F values en masse from a valarray, X
-valarray<long double> integrand(const valarray<long double>& X, const long double b) {
+valarray<long double> integrand(const valarray<long double>& X, const long double& b) {
     // f(x) = sqrt((b-x)x)
     return pow(((long double)b - X)*X, 0.5L);
 }
 
 // Part (d) - Define mean value Monte Carlo function
-long double mv_monte(const long double a, const long double b, const int sample_size) {
-    const long double weight = (long double)(b - a) / (long double)sample_size;
+long double mv_monte(const long double& a, const long double& b, const int& sample_size) {
+    const long double weight = (b - a) / (long double)sample_size;
     valarray<long double> X = uniform_randoms(a, b, sample_size);
     valarray<long double> F = integrand(X, b);
 
@@ -78,14 +78,14 @@ long double mv_monte(const long double a, const long double b, const int sample_
 }
 
 // Part (d) - Define uniform random values, an auxiliary function for mv_monte()
-valarray<long double> uniform_randoms(const long double a, const long double b, int n) {
-    valarray<long double> rand_nums(n);
+valarray<long double> uniform_randoms(const long double& a, const long double& b, const int& sample_size) {
+    valarray<long double> rand_nums(sample_size);
     // Seed with a real random value, if available
     random_device rd;
     mt19937 gen(rd());
     uniform_real_distribution<long double> unif(a, b);
     // Choose a random value uniformly between a and b
-    for (int i = 0; i < n; i++){
+    for (int i = 0; i < sample_size; i++){
         long double rand_num = unif(gen);
         rand_nums[i] = rand_num;
     }
