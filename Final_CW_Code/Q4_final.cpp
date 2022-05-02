@@ -99,13 +99,13 @@ valarray<long double> integrand(const valarray<long double>& X, const long doubl
 
 // Part (a) - Define Trapezium Rule function
 long double trapezium(const long double& a, const long double& b, const int& n) {
-    const long double h = (long double)(b - a)/ (long double)n;
+    const long double h = (b - a)/ (long double)n;
     valarray<long double> X(n); // x_i values: {0,0,..,0} for indices [0],[1],..[63]
     valarray<long double> F(n); // f(x_i) = f_i values
     valarray<long double> W(n); // weights
 
     for (int i = 0; i < X.size(); i++) {
-        X[i] = (long double)a + h*(long double)i; // use step size h to calculate each x value
+        X[i] = a + h * (long double)i; // use step size h to calculate each x value
         W[i] = (i == 0 || i == n - 1) ? h / 2.0L : h; // ternary operator to assign weights
     }
     F = integrand(X, b);
@@ -181,7 +181,7 @@ long double sum_for_clenshaw(const long double& theta, const int& n) {
         numerator = (2.0L * cos(2.0L * (long double)k * theta));
         denominator = (4.0L * (long double)(k * k) - 1.0L);
 //        cout set << "k = " << k << ", numerator = " << numerator << ", denominator = " << denominator << endl;
-        summands[k-1] = numerator / denominator;
+        summands[k - 1] = numerator / denominator;
     }
 
 //    cout << "summands = " ; print_valarray(summands);
