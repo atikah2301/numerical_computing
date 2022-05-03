@@ -4,7 +4,7 @@
 #include <valarray> // for valarrays
 #include <cmath> // for exp(), pow() - overloading for long doubles and valarrays
 
-#define set << setprecision(10)
+#define set << setprecision(10 // for 10 digits of accuracy
 using namespace std;
 
 // Function Declarations
@@ -233,34 +233,6 @@ long double kahan_sum(const valarray<long double>& v) {
 
 long double mean_error(const valarray<long double>& errors) {
     return kahan_sum(abs(errors)) / errors.size();
-}
-
-void run_comparison(const int& N) {
-    valarray<long double> X(N + 1); // x_i
-    valarray<long double> F(N + 1); // f(x_i)
-    valarray<long double> analytical_2nd_derivatives(N + 1); // f''(x_i)
-    valarray<long double> numerical_2nd_derivatives(N + 1); // f''_i
-    valarray<long double> errors(N + 1); // e_i
-    long double mean_err;
-    long double n_sqr_mean_err;
-
-    // Calculate the values and store them
-    for (int i = 0; i <= N; i++) {
-        X[i] = (long double)((2 * i) - N) / (long double)N;
-    }
-    F = known_function(X);
-    analytical_2nd_derivatives = known_function_2nd_derivatives(X);
-    numerical_2nd_derivatives = finite_differences(X);
-    errors = analytical_2nd_derivatives - numerical_2nd_derivatives;
-    mean_err = mean_error(errors);
-    n_sqr_mean_err = (long double)(N * N) * mean_err;
-
-    // print output
-    cout set << "N = " << N << endl;
-    cout set << "Mean Error = " << mean_err << endl;
-    cout set << "N^2 * Mean Error = " << n_sqr_mean_err << endl;
-    cout set << "delta^2 = " << 4.0L / (long double)(N * N) << endl;
-    cout << endl;
 }
 
 valarray<valarray<long double>> run_comparison(const valarray<int>& N_values) {
