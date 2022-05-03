@@ -1,12 +1,8 @@
 #include <iostream> // for cout
 #include <iomanip> // for setprecision()
 #include <fstream>
-#include <string>
 #include <valarray> // for valarrays
 #include <cmath> // for exp(), pow() - overloading to work for long doubles
-#include <stdexcept>
-#include <bits/stdc++.h>
-#include <limits>
 
 #define set << setprecision(10)
 using namespace std;
